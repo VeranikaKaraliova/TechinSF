@@ -1,0 +1,48 @@
+<template>  
+  <template if:true={contacts}>
+    <lightning-card>
+      <div class="filter-container">
+        <lightning-input type="search" 
+            label="Search by name"
+            placeholder="input contact's name..." 
+            class="slds-m-left_small slds-m-right_small input-filter" 
+            onchange={safeValue}>
+        </lightning-input>
+        <lightning-button class="btn-filter" type="submit"
+            label="Filter"
+            onclick={FilterByValue}>
+        </lightning-button>
+      </div>
+      <table>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Mobile Phone</th>
+          <th>Account Name</th>
+          <th>Created Date</th>
+        </tr>
+        <template for:each={contacts} for:item="contact">
+          <tr key={contact.id}>
+            <td>{contact.FirstName}</td>
+            <td>{contact.LastName}</td>
+            <td>{contact.Email}</td>
+            <td>{contact.MobilePhone}</td>
+            <td><a href="#" target="_blank" data-idurl={contact.AccountId} onclick={goToDetailAccount}>{contact.Account.Name}</a></td>
+            <td>
+              <lightning-formatted-date-time
+                  key={contact.id}
+                  value={contact.CreatedDate}
+                  year="numeric"
+                  day="2-digit"
+                  month="numeric"
+                  hour="2-digit"
+                  minute="2-digit">
+              </lightning-formatted-date-time>
+            </td>
+          </tr>
+        </template>
+      </table>
+    </lightning-card>
+  </template>
+</template>
